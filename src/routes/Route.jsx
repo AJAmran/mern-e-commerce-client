@@ -1,7 +1,10 @@
 import { createBrowserRouter } from "react-router-dom";
+
+import Registration from "../pages/Registration";
 import Main from "../layout/Main";
-import Home from "../pages/Home";
-import AddProductForm from "../pages/AddProducts";
+import Home from "../components/Home";
+import AddProductForm from "../components/AddProducts";
+import LoginForm from "../pages/Login";
 
 export const router = createBrowserRouter([
   {
@@ -13,8 +16,16 @@ export const router = createBrowserRouter([
         element: <Home></Home>,
       },
       {
-        path:'/add-product',
-        element: <AddProductForm></AddProductForm>
+        path: "/add-product",
+        element: <AddProductForm></AddProductForm>,
+      },
+      {
+        path:"/login",
+        element: <LoginForm></LoginForm>
+      },
+      {
+        path:'/registration',
+        element: <Registration></Registration>
       }
     ],
   },

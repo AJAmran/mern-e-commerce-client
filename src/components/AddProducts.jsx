@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 
 // import axios from 'axios';
 
-function AddProductForm() {
+const AddProductForm =()=> {
   const [productData, setProductData] = useState({
     name: "",
     description: "",
