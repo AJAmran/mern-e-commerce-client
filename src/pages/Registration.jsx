@@ -1,8 +1,13 @@
-import React, { useState } from "react";
-import { FaUser, FaEnvelope, FaLock, FaEye, FaEyeSlash } from "react-icons/fa";
+import { useContext, useState } from "react";
+import { FaLock, FaEye, FaEyeSlash, FaSpinner } from "react-icons/fa";
 import { motion } from "framer-motion";
+import { AuthContext } from "../context/AuthProvider";
+import Swal from "sweetalert2";
+import { Navigate } from "react-router-dom";
 
 const Registration = () => {
+  const [error, setError] = useState("");
+  const { createUser, updateUserProfile } = useContext(AuthContext);
   const [formData, setFormData] = useState({
     username: "",
     email: "",
@@ -34,9 +39,6 @@ const Registration = () => {
   };
 
   const checkPasswordStrength = (password) => {
-    // You can implement password strength check logic here
-    // For example, check length, complexity, etc.
-    // Update the passwordStrength state accordingly
     if (password.length >= 8) {
       setPasswordStrength("Strong");
     } else if (password.length >= 6) {
@@ -54,15 +56,54 @@ const Registration = () => {
       setPasswordMismatch(false);
     }
   };
+
+  const [registrationLoading, setRegistrationLoading] = useState(false);
+
   const handleSubmit = (e) => {
     e.preventDefault();
     if (passwordMismatch) {
       return;
     }
-   
-    console.log(formData)
+    setRegistrationLoading(true);
+    createUser(formData.email, formData.password)
+      .then((result) => {
+        const loggedUser = result.user;
+        console.log(loggedUser);
+        updateUserProfile(formData.username, formData.photoUrl).then(() => {
+          const newUser = {
+            name: formData.username,
+            email: formData.email,
+            imges: formData.photoUrl,
+            role: "user",
+          };
+          fetch("http://localhost:5000/users", {
+            method: "POST",
+            headers: {
+              "content-type": "application/json",
+            },
+            body: JSON.stringify(newUser),
+          })
+            .then((res) => res.json())
+            .then((data) => {
+              if (data.insertedId) {
+                setRegistrationLoading(false);
+                Swal.fire({
+                  position: "top-end",
+                  icon: "success",
+                  title: "User created successfully.",
+                  showConfirmButton: false,
+                  timer: 1500,
+                });
+                Navigate("/");
+              }
+            });
+        });
+      })
+      .catch((error) => {
+        setRegistrationLoading(false);
+        console.log(error);
+      });
   };
-
   return (
     <div className="bg-gradient-to-r from-purple-100 to-blue-100 min-h-screen flex items-center justify-center">
       <motion.div
@@ -182,8 +223,16 @@ const Registration = () => {
               whileTap={{ scale: 0.95 }}
               type="submit"
               className="flex items-center justify-center bg-gradient-to-r from-blue-400 to-purple-400 hover:bg-blue-500 py-2 px-4 rounded-lg text-white font-semibold w-full transition-colors"
+              disabled={registrationLoading} // Disable button during registration
             >
-              Register
+              {registrationLoading ? ( // Conditionally render spinner or text
+                <>
+                  <FaSpinner className="animate-spin mr-2" />
+                  Registering...
+                </>
+              ) : (
+                "Register"
+              )}
             </motion.button>
           </div>
         </form>
