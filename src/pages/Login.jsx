@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import { AuthContext } from "../context/AuthProvider";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { loadCaptchaEnginge, LoadCanvasTemplate, validateCaptcha} from "react-simple-captcha";
+import { toast } from "react-hot-toast";
 
 const LoginForm = () => {
   const { user, loading, signIn, googleSignIn, logOut, updateUserProfile } =
@@ -45,6 +46,18 @@ const LoginForm = () => {
     } else {
       alert("Captcha Does Not Match");
     }
+
+    signIn(formData.email, formData.password)
+    .then(result=>{
+      const user = result.user;
+      console.log(user);
+      toast.success("Login Successful")
+    })
+    .catch((error)=>{
+      console.log(error);
+    })
+
+
   };
 
   return (

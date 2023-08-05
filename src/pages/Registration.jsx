@@ -3,11 +3,13 @@ import { FaLock, FaEye, FaEyeSlash, FaSpinner } from "react-icons/fa";
 import { motion } from "framer-motion";
 import { AuthContext } from "../context/AuthProvider";
 import Swal from "sweetalert2";
-import { Link, Navigate } from "react-router-dom";
+import { Link, Navigate, useNavigate } from "react-router-dom";
+import { toast } from "react-hot-toast";
 
 const Registration = () => {
-  const [error, setError] = useState("");
+  const [error, setError] = useState("")
   const { createUser, updateUserProfile } = useContext(AuthContext);
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     username: "",
     email: "",
@@ -17,8 +19,8 @@ const Registration = () => {
   });
 
   const [showPassword, setShowPassword] = useState(false);
-  const [passwordStrength, setPasswordStrength] = useState("");
   const [passwordMismatch, setPasswordMismatch] = useState(false);
+  const [formSubmitted, setFormSubmitted] = useState(false);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -27,9 +29,7 @@ const Registration = () => {
       [name]: value,
     }));
 
-    if (name === "password") {
-      checkPasswordStrength(value);
-    } else if (name === "confirmPassword") {
+    if (name === "confirmPassword") {
       checkPasswordMatch(formData.password, value);
     }
   };
@@ -38,16 +38,7 @@ const Registration = () => {
     setShowPassword(!showPassword);
   };
 
-  const checkPasswordStrength = (password) => {
-    if (password.length >= 8) {
-      setPasswordStrength("Strong");
-    } else if (password.length >= 6) {
-      setPasswordStrength("Moderate");
-    } else {
-      setPasswordStrength("Weak");
-    }
-    checkPasswordMatch(formData.confirmPassword, password);
-  };
+ 
 
   const checkPasswordMatch = (password, confirmPassword) => {
     if (password && confirmPassword && password !== confirmPassword) {
@@ -57,11 +48,17 @@ const Registration = () => {
     }
   };
 
+  const isPasswordValid = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{6,}$/.test(
+    formData.password
+  );
+  
+
   const [registrationLoading, setRegistrationLoading] = useState(false);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (passwordMismatch) {
+    setFormSubmitted(true);
+    if (passwordMismatch || !isPasswordValid) {
       return;
     }
     setRegistrationLoading(true);
@@ -87,22 +84,20 @@ const Registration = () => {
             .then((data) => {
               if (data.insertedId) {
                 setRegistrationLoading(false);
-                Swal.fire({
-                  position: "top-end",
-                  icon: "success",
-                  title: "User created successfully.",
-                  showConfirmButton: false,
-                  timer: 1500,
-                });
-                Navigate("/");
+                toast.success('Successfully account created!')
+                navigate("/");
+              }
+              else{
+                setRegistrationLoading(false);
               }
             });
         });
       })
       .catch((error) => {
         setRegistrationLoading(false);
-        console.log(error);
+        setError(error.message)
       });
+      setError('');
   };
   return (
     <div className="bg-gradient-to-r from-purple-100 to-blue-100 min-h-screen flex items-center justify-center">
@@ -149,31 +144,33 @@ const Registration = () => {
             </div>
           </div>
           <div className="relative">
-            <label className="block text-gray-700 font-semibold mb-1">
-              Password:
-            </label>
-            <div className="input-icon">
-              <input
-                type={showPassword ? "text" : "password"}
-                name="password"
-                value={formData.password}
-                onChange={handleChange}
-                placeholder="Enter Your Password"
-                className="border px-3 py-2 rounded-lg w-full focus:outline-none focus:ring focus:border-blue-200 pl-10"
-                required
-              />
-              <button
-                type="button"
-                onClick={handleTogglePassword}
-                className="absolute text-gray-500 top-10 right-3"
-              >
-                {showPassword ? <FaEyeSlash /> : <FaEye />}
-              </button>
-            </div>
-            {passwordStrength && (
-              <p className="text-sm text-gray-600">{`Password Strength: ${passwordStrength}`}</p>
-            )}
-          </div>
+  <label className="block text-gray-700 font-semibold mb-1">
+    Password:
+  </label>
+  <div className="input-icon">
+    <input
+      type={showPassword ? "text" : "password"}
+      name="password"
+      value={formData.password}
+      onChange={handleChange}
+      placeholder="Enter Your Password"
+      className="border px-3 py-2 rounded-lg w-full focus:outline-none focus:ring focus:border-blue-200 pl-10"
+      required
+    />
+    <button
+      type="button"
+      onClick={handleTogglePassword}
+      className="absolute text-gray-500 top-10 right-3"
+    >
+      {showPassword ? <FaEyeSlash /> : <FaEye />}
+    </button>
+  </div>
+  {formSubmitted && !isPasswordValid && formData.password.trim() !== "" && (
+    <p className="text-sm text-red-500">
+      Password must have at least 6 characters, 1 capital and small letter, one number, and one special character.
+    </p>
+  )}
+</div>
           <div className="relative">
             <label className="block text-gray-700 font-semibold mb-1">
               Confirm Password:
@@ -239,6 +236,7 @@ const Registration = () => {
         <div className="pt-3 pl-1">
           <p>Already Have an account <Link to="/login" className="text-blue-900 font-semibold">LogIn</Link></p>
         </div>
+        <div className="text-red-500 text-sm mt-2">{error}</div>
       </motion.div>
     </div>
   );
