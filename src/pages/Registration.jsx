@@ -3,7 +3,7 @@ import { FaLock, FaEye, FaEyeSlash, FaSpinner } from "react-icons/fa";
 import { motion } from "framer-motion";
 import { AuthContext } from "../context/AuthProvider";
 import Swal from "sweetalert2";
-import { Navigate } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 
 const Registration = () => {
   const [error, setError] = useState("");
@@ -236,6 +236,9 @@ const Registration = () => {
             </motion.button>
           </div>
         </form>
+        <div className="pt-3 pl-1">
+          <p>Already Have an account <Link to="/login" className="text-blue-900 font-semibold">LogIn</Link></p>
+        </div>
       </motion.div>
     </div>
   );
