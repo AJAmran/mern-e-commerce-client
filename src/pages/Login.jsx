@@ -3,13 +3,17 @@ import { FaEye, FaEyeSlash, FaGoogle } from "react-icons/fa";
 import { motion } from "framer-motion";
 import { AuthContext } from "../context/AuthProvider";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import { loadCaptchaEnginge, LoadCanvasTemplate, validateCaptcha} from "react-simple-captcha";
-import { toast } from "react-hot-toast";
+import {
+  loadCaptchaEnginge,
+  LoadCanvasTemplate,
+  validateCaptcha,
+} from "react-simple-captcha";
+import Swal from "sweetalert2";
 
 const LoginForm = () => {
-  const { user, loading, signIn, googleSignIn, logOut, updateUserProfile } =
-  useContext(AuthContext);
+  const { user, signIn, googleSignIn } = useContext(AuthContext);
   const [showPassword, setShowPassword] = useState(false);
+  const [captchaError, setCaptchaError] = useState("");
   const navigate = useNavigate();
   const location = useLocation();
   const from = location.state?.from?.pathname || "/";
@@ -17,6 +21,7 @@ const LoginForm = () => {
     email: "",
     password: "",
   });
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prevData) => ({
@@ -24,7 +29,7 @@ const LoginForm = () => {
       [name]: value,
     }));
   };
-  
+
   const handleTogglePassword = () => {
     setShowPassword(!showPassword);
   };
@@ -33,31 +38,32 @@ const LoginForm = () => {
     loadCaptchaEnginge(6);
   }, []);
 
-  
-
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Handle login logic here
     let user_captcha_value =
       document.getElementById("user_captcha_input").value;
 
-    if (validateCaptcha(user_captcha_value) == true) {
-      alert("Captcha Matched");
+    if (validateCaptcha(user_captcha_value)) {
+      try {
+        const result = await signIn(formData.email, formData.password);
+        const user = result.user;
+        console.log(user);
+
+        Swal.fire({
+          position: "top-end",
+          icon: "success",
+          title: "Login Successful",
+          showConfirmButton: false,
+          timer: 1500,
+        });
+
+        navigate(from, { replace: true });
+      } catch (error) {
+        console.error("Login error:", error);
+      }
     } else {
-      alert("Captcha Does Not Match");
+      setCaptchaError("Captcha doesn't match");
     }
-
-    signIn(formData.email, formData.password)
-    .then(result=>{
-      const user = result.user;
-      console.log(user);
-      toast.success("Login Successful")
-    })
-    .catch((error)=>{
-      console.log(error);
-    })
-
-
   };
 
   return (
@@ -84,7 +90,7 @@ const LoginForm = () => {
                 defaultValue={user?.email}
                 onChange={handleChange}
                 placeholder="Please Enter Your Email"
-                className="border px-3 py-2 rounded-lg w-full focus:outline-none focus:ring focus:border-blue-200 pl-10"
+                className="border py-2 px-3 rounded-lg w-full focus:outline-none focus:ring focus:border-blue-200"
                 required
               />
             </div>
@@ -93,14 +99,14 @@ const LoginForm = () => {
             <label className="block text-gray-700 font-semibold mb-1">
               Password:
             </label>
-            <div className="input-icon">
+            <div className="input-ico">
               <input
                 type={showPassword ? "text" : "password"}
                 name="password"
                 value={formData.password}
                 onChange={handleChange}
                 placeholder="Please Enter Your Password"
-                className="border px-3 py-2 rounded-lg w-full focus:outline-none focus:ring focus:border-blue-200 pl-10"
+                className="border px-3 py-2 rounded-lg w-full focus:outline-none focus:ring focus:border-blue-200"
                 required
               />
               <button
@@ -114,6 +120,7 @@ const LoginForm = () => {
           </div>
           <div>
             <LoadCanvasTemplate />
+            <p className="text-red-500">{captchaError}</p>
             <input
               id="user_captcha_input"
               type="text"
@@ -136,7 +143,7 @@ const LoginForm = () => {
             </motion.button>
           </div>
           <div>
-            {/* Attractive Google Login Button */}
+            {/* Google Login Button */}
             <button className="btn-google w-full py-2 rounded-lg text-white font-semibold bg-blue-500 hover:bg-blue-600 transition-colors flex items-center justify-center">
               <span className="mr-2">
                 <FaGoogle size={20} />

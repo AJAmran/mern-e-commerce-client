@@ -1,9 +1,9 @@
-import React from 'react';
-import { Carousel } from 'react-responsive-carousel';
-import 'react-responsive-carousel/lib/styles/carousel.min.css';
-import p1 from '../../assets/images/p1.jpg';
-import p2 from '../../assets/images/p2.jpg';
-import p3 from '../../assets/images/p3.jpg';
+import React from "react";
+import { Carousel } from "react-responsive-carousel";
+import "react-responsive-carousel/lib/styles/carousel.min.css";
+import p1 from "../../assets/images/p1.jpg";
+import p2 from "../../assets/images/p2.jpg";
+import p3 from "../../assets/images/p3.jpg";
 
 function Banner() {
   const images = [p1, p2, p3];

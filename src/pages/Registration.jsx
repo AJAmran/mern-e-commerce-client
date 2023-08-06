@@ -122,7 +122,7 @@ const Registration = () => {
                 value={formData.username}
                 onChange={handleChange}
                 placeholder="Enter Your Username"
-                className="border px-3 py-2 rounded-lg w-full focus:outline-none focus:ring focus:border-blue-200 pl-10"
+                className="border px-3 py-2 rounded-lg w-full focus:outline-none focus:ring focus:border-blue-200"
                 required
               />
             </div>
@@ -138,7 +138,7 @@ const Registration = () => {
                 value={formData.email}
                 onChange={handleChange}
                 placeholder="Enter Your Email"
-                className="border px-3 py-2 rounded-lg w-full focus:outline-none focus:ring focus:border-blue-200 pl-10"
+                className="border px-3 py-2 rounded-lg w-full focus:outline-none focus:ring focus:border-blue-200"
                 required
               />
             </div>
@@ -154,7 +154,7 @@ const Registration = () => {
       value={formData.password}
       onChange={handleChange}
       placeholder="Enter Your Password"
-      className="border px-3 py-2 rounded-lg w-full focus:outline-none focus:ring focus:border-blue-200 pl-10"
+      className="border px-3 py-2 rounded-lg w-full focus:outline-none focus:ring focus:border-blue-200"
       required
     />
     <button
@@ -182,7 +182,7 @@ const Registration = () => {
                 value={formData.confirmPassword}
                 onChange={handleChange}
                 placeholder="Confirm Your Password"
-                className={`border px-3 py-2 rounded-lg w-full focus:outline-none focus:ring focus:border-blue-200 pl-10 ${
+                className={`border px-3 py-2 rounded-lg w-full focus:outline-none focus:ring focus:border-blue-200 ${
                   passwordMismatch ? "border-red-500" : ""
                 }`}
                 required
@@ -206,7 +206,7 @@ const Registration = () => {
                 value={formData.photoUrl}
                 onChange={handleChange}
                 placeholder="Enter Photo URL"
-                className="border px-3 py-2 rounded-lg w-full focus:outline-none focus:ring focus:border-blue-200 pl-10"
+                className="border px-3 py-2 rounded-lg w-full focus:outline-none focus:ring focus:border-blue-200"
                 required
               />
             </div>
