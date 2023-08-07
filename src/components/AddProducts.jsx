@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { FaPlusCircle } from "react-icons/fa";
 import { motion } from "framer-motion";
+import axios from "axios";
+import Swal from "sweetalert2";
 
 // import axios from 'axios';
 
@@ -17,35 +19,45 @@ const AddProductForm =()=> {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
+    const parsedValue = name === 'price' || name === 'stock' ? parseInt(value) : value;
+
     setProductData((prevData) => ({
       ...prevData,
-      [name]: value,
+      [name]: parsedValue,
     }));
   };
 
   const handleSubmit = async (e) => {
-    // e.preventDefault();
-    // try {
-    //   const response = await axios.post('/products', productData); // Adjust the API endpoint
-    //   console.log('Product added:', response.data);
-    //   // Clear the form or show a success message
-    //   setProductData({
-    //     name: '',
-    //     description: '',
-    //     price: 0,
-    //     category: '',
-    //     brand: '',
-    //     stock: 0,
-    //     imageUrl: '',
-    //   });
-    // } catch (error) {
-    //   console.error('Error adding product:', error);
-    //   // Show an error message
-    // }
+    e.preventDefault();
+    
+    try {
+      const response = await axios.post('http://localhost:5000/products', productData); // Adjust the API endpoint
+      console.log('Product added:', response.data);
+      // Clear the form or show a success message
+      setProductData({
+        name: '',
+        description: '',
+        price: 0,
+        category: '',
+        brand: '',
+        stock: 0,
+        imageUrl: '',
+      });
+      Swal.fire({
+        position: "top-end",
+        icon: "success",
+        title: "Product Successfully Added",
+        showConfirmButton: false,
+        timer: 1500,
+      });
+    } catch (error) {
+      console.error('Error adding product:', error);
+      // Show an error message
+    }
   };
 
   return (
-    <div className="bg-gradient-to-r from-blue-100 to-purple-100 min-h-screen flex items-center justify-center">
+    <div className="bg-gradient-to-r from-blue-100 to-purple-100 min-h-screen flex items-center justify-center pt-2">
     <motion.div
       initial={{ opacity: 0, y: -20 }}
       animate={{ opacity: 1, y: 0 }}
