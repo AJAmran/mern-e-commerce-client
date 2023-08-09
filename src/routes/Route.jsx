@@ -7,6 +7,9 @@ import AddProductForm from "../components/AddProducts";
 import LoginForm from "../pages/Login";
 import AllProducts from "../pages/AllProducts";
 import ProductDetails from "../pages/ProductDetails";
+import Cart from "../components/Cart";
+import PrivateRoute from "./PrivateRoute";
+import Checkout from "../components/CheckOut";
 
 export const router = createBrowserRouter([
   {
@@ -36,6 +39,14 @@ export const router = createBrowserRouter([
       { path: "/ProductDetails/:id",
        element: <ProductDetails></ProductDetails> 
       },
+      {
+        path: '/cart',
+        element: <PrivateRoute><Cart></Cart></PrivateRoute>
+      },
+      {
+        path: "/checkout",
+        element: <Checkout></Checkout>
+      }
     ],
   },
 ]);

@@ -12,7 +12,7 @@ import {
 } from "react-icons/fa";
 import { AuthContext } from "../../../context/AuthProvider";
 
-function Header() {
+const Header =() =>{
   const { user, logOut } = useContext(AuthContext);
 
   const signOut = () => {
