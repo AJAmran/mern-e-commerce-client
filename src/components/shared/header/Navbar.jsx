@@ -1,12 +1,28 @@
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { FaShoppingCart, FaBars } from "react-icons/fa";
 import { Link, useLocation } from "react-router-dom";
 import logo from "../../../assets/images/logo.png";
 import { AuthContext } from "../../../context/AuthProvider";
+import axios from "axios";
 
 function Navbar() {
   const { user } = useContext(AuthContext);
   const location = useLocation();
+  const [cartCount, setCartCount] = useState(0);
+  
+  useEffect(()=>{
+    const fetchCartItems = async()=>{
+      try{
+        const response = await axios.get('http://localhost:5000/carts')
+        const cartItems = response.data;
+        const totalCount = cartItems.reduce((total, item)=> total + item.quantity, 0);
+        setCartCount(totalCount)
+      }catch(error){
+        console.log('Error Fetching Cart Item', error)
+      }
+    }
+    fetchCartItems();
+  }, [])
 
   const navigationLinks = [
     { path: "/", label: "Home" },
@@ -64,12 +80,12 @@ function Navbar() {
                 />
               </Link>
             )}
-            <Link to="/cart">
-              <FaShoppingCart className="text-3xl text-purple-500 cursor-pointer hover:scale-110" />
-              <div className="absolute top-[50px] right-9 bg-blue-500 text-white rounded-full w-6 h-6 text-xs flex justify-center items-center">
-                3
-              </div>
-            </Link>
+           <Link to="/cart" className="relative">
+                <FaShoppingCart className="text-3xl text-purple-500 cursor-pointer hover:scale-110" />
+                <div className="absolute -top-3 right-0 bg-blue-500 text-white rounded-full w-6 h-6 text-xs flex justify-center items-center">
+                {cartCount > 0 && <span className="cart-count">{cartCount}</span>}
+                </div>
+              </Link>
           </div>
         </nav>
         <div className="hidden lg:block xl:block">
@@ -170,8 +186,8 @@ function Navbar() {
               )}
               <Link to="/cart" className="relative">
                 <FaShoppingCart className="text-3xl text-purple-500 cursor-pointer hover:scale-110 mb-4" />
-                <div className="absolute top-0 right-0 bg-blue-500 text-white rounded-full w-6 h-6 text-xs flex justify-center items-center">
-                  3
+                <div className="absolute -top-3 right-0 bg-blue-500 text-white rounded-full w-6 h-6 text-xs flex justify-center items-center">
+                {cartCount > 0 && <span className="cart-count">{cartCount}</span>}
                 </div>
               </Link>
             </div>
