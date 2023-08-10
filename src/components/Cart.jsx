@@ -4,48 +4,22 @@ import { FaTrash, FaMinus, FaPlus } from "react-icons/fa";
 import { motion } from "framer-motion";
 import { AuthContext } from "../context/AuthProvider";
 import { Link } from "react-router-dom";
+import useCart from "../hook/useCart";
 
 const Cart = () => {
-  const [cartItems, setCartItems] = useState([]);
-  const [totalPrice, setTotalPrice] = useState(0);
   const { user } = useContext(AuthContext);
+  const [carts, refetch] = useCart();
 
-  useEffect(() => {
-    const fetchCartItems = async () => {
-      try {
-        const response = await axios.get("http://localhost:5000/carts");
-        setCartItems(response.data);
-
-        // Calculate total price
-        const total = response.data.reduce(
-          (total, item) => total + item.price * item.quantity,
-          0
-        );
-        setTotalPrice(total);
-      } catch (error) {
-        console.error("Error fetching cart items:", error);
-      }
-    };
-
-    fetchCartItems();
-  }, []);
-
+  const totalPrice = carts.reduce(
+    (total, item) => total + item.price * item.quantity,
+    0
+  );
   const updateQuantity = async (itemId, newQuantity) => {
     try {
       await axios.put(`http://localhost:5000/carts/${itemId}`, {
         quantity: newQuantity,
       });
-      const updatedCart = cartItems.map((item) =>
-        item._id === itemId ? { ...item, quantity: newQuantity } : item
-      );
-      setCartItems(updatedCart);
-
-      // Update total price after quantity update
-      const total = updatedCart.reduce(
-        (total, item) => total + item.price * item.quantity,
-        0
-      );
-      setTotalPrice(total);
+      refetch(); // Refetch the cart data after updating
     } catch (error) {
       console.error("Error updating quantity:", error);
     }
@@ -54,15 +28,7 @@ const Cart = () => {
   const removeItem = async (itemId) => {
     try {
       await axios.delete(`http://localhost:5000/carts/${itemId}`);
-      const updatedCart = cartItems.filter((item) => item._id !== itemId);
-      setCartItems(updatedCart);
-
-      // Update total price after removal
-      const total = updatedCart.reduce(
-        (total, item) => total + item.price * item.quantity,
-        0
-      );
-      setTotalPrice(total);
+      refetch(); // Refetch the cart data after removal
     } catch (error) {
       console.error("Error removing item:", error);
     }
@@ -73,10 +39,10 @@ const Cart = () => {
       <h2 className="text-3xl font-semibold mb-4 text-center text-gray-800">
         Your Cart
       </h2>
-      {cartItems.length > 0 ? (
+      {carts.length > 0 ? (
         <div className="bg-white shadow-lg rounded-lg overflow-hidden">
           <ul className="divide-y divide-gray-300">
-            {cartItems.map((item) => (
+            {carts.map((item) => (
               <motion.li
                 key={item._id}
                 className="p-4 flex items-center"

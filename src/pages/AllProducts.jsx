@@ -7,6 +7,7 @@ import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import Swal from "sweetalert2";
 import { AuthContext } from "../context/AuthProvider";
+import useCart from "../hook/useCart";
 
 const fetchProducts = async () => {
   try {
@@ -49,6 +50,7 @@ const cardVariants = {
 
 const AllProducts = () => {
   const { user } = useContext(AuthContext);
+  const [cart, refetch] = useCart();
   console.log(user);
   const {
     data: products,
@@ -63,7 +65,7 @@ const AllProducts = () => {
     setVisibleProducts((prevVisibleProducts) => prevVisibleProducts + 10);
   };
   const addToCart = useMutation(addToCartMutation);
-  const handleAddToCart = (productId) => {
+  const handleAddToCart = async (productId) => {
     if (!user) {
       Swal.fire({
         icon: "info",
@@ -71,11 +73,17 @@ const AllProducts = () => {
         text: "Please login to add products to your cart.",
       });
     } else {
-      addToCart.mutate({
-        productId,
-        quantity: 1,
-        userEmail: user.email, // Include user's email
-      });
+      try {
+        await addToCart.mutateAsync({
+          productId,
+          quantity: 1,
+          userEmail: user.email,
+        });
+        // After successfully adding to cart, refetch cart data
+        refetch();
+      } catch (error) {
+        console.error("Failed to add item to cart:", error);
+      }
     }
   };
   if (isLoading) {

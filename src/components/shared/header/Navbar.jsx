@@ -4,25 +4,12 @@ import { Link, useLocation } from "react-router-dom";
 import logo from "../../../assets/images/logo.png";
 import { AuthContext } from "../../../context/AuthProvider";
 import axios from "axios";
+import useCart from "../../../hook/useCart";
 
 function Navbar() {
   const { user } = useContext(AuthContext);
   const location = useLocation();
-  const [cartCount, setCartCount] = useState(0);
-  
-  useEffect(()=>{
-    const fetchCartItems = async()=>{
-      try{
-        const response = await axios.get('http://localhost:5000/carts')
-        const cartItems = response.data;
-        const totalCount = cartItems.reduce((total, item)=> total + item.quantity, 0);
-        setCartCount(totalCount)
-      }catch(error){
-        console.log('Error Fetching Cart Item', error)
-      }
-    }
-    fetchCartItems();
-  }, [])
+  const [cart] = useCart();
 
   const navigationLinks = [
     { path: "/", label: "Home" },
@@ -83,7 +70,7 @@ function Navbar() {
            <Link to="/cart" className="relative">
                 <FaShoppingCart className="text-3xl text-purple-500 cursor-pointer hover:scale-110" />
                 <div className="absolute -top-3 right-0 bg-blue-500 text-white rounded-full w-6 h-6 text-xs flex justify-center items-center">
-                {cartCount > 0 && <span className="cart-count">{cartCount}</span>}
+                {cart.length > 0 && <span className="cart-count">{cart.reduce((total, item) => total + item.quantity, 0)}</span>}
                 </div>
               </Link>
           </div>
@@ -187,7 +174,7 @@ function Navbar() {
               <Link to="/cart" className="relative">
                 <FaShoppingCart className="text-3xl text-purple-500 cursor-pointer hover:scale-110 mb-4" />
                 <div className="absolute -top-3 right-0 bg-blue-500 text-white rounded-full w-6 h-6 text-xs flex justify-center items-center">
-                {cartCount > 0 && <span className="cart-count">{cartCount}</span>}
+                {cart.length > 0 && <span className="cart-count"> {cart.reduce((total, item) => total + item.quantity, 0)}</span>}
                 </div>
               </Link>
             </div>
