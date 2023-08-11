@@ -132,7 +132,7 @@ const AllProducts = () => {
         <div className="flex justify-center mt-4">
           <button
             onClick={handleSeeMore}
-            className="px-4 py-2 text-gray-800 bg-gradient-to-r from-blue-300 to-purple-300 hover:bg-blue-600 border rounded focus:outline-none focus:ring focus:border-blue-600"
+            className="px-4 py-2 text-white bg-gradient-to-r from-blue-400 to-purple-400 hover:bg-blue-600 border rounded-lg focus:outline-none focus:ring focus:border-blue-600 text-lg font-semibold"
           >
             See More
           </button>

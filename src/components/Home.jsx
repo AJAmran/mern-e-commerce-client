@@ -10,7 +10,9 @@ function Home() {
   return (
     <div>
       {/* Include the Banner component here */}
+      <div className='container mx-auto'>
       <Banner></Banner>
+      </div>
 
       {/* Add more sections or content for the Home page */}
       <div className="container mx-auto px-4 md:px-6 lg:px-8 py-8">
