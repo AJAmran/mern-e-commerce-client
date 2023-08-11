@@ -1,9 +1,8 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useState } from "react";
 import { FaShoppingCart, FaBars } from "react-icons/fa";
 import { Link, useLocation } from "react-router-dom";
 import logo from "../../../assets/images/logo.png";
 import { AuthContext } from "../../../context/AuthProvider";
-import axios from "axios";
 import useCart from "../../../hook/useCart";
 
 function Navbar() {
@@ -34,7 +33,7 @@ function Navbar() {
     <div className="bg-gradient-to-r from-blue-200 to-purple-200 z-10">
       <div className="container mx-auto">
         <nav className="text-gray-800 flex justify-between items-center py-4 px-6 lg:px-10 mt-10">
-          <Link to='/' className="flex items-center space-x-2">
+          <Link to="/" className="flex items-center space-x-2">
             <img src={logo} alt="Logo" className="w-10 h-10" />
             <span className="text-2xl font-semibold text-blue-500">
               TrendHaven
@@ -67,12 +66,16 @@ function Navbar() {
                 />
               </Link>
             )}
-           <Link to="/cart" className="relative">
-                <FaShoppingCart className="text-3xl text-purple-500 cursor-pointer hover:scale-110" />
-                <div className="absolute -top-3 right-0 bg-blue-500 text-white rounded-full w-6 h-6 text-xs flex justify-center items-center">
-                {cart.length > 0 && <span className="cart-count">{cart.reduce((total, item) => total + item.quantity, 0)}</span>}
-                </div>
-              </Link>
+            <Link to="/cart" className="relative">
+              <FaShoppingCart className="text-3xl text-purple-500 cursor-pointer hover:scale-110" />
+              <div className="absolute -top-3 right-0 bg-blue-500 text-white rounded-full w-6 h-6 text-xs flex justify-center items-center">
+                {cart.length > 0 && (
+                  <span className="cart-count">
+                    {cart.reduce((total, item) => total + item.quantity, 0)}
+                  </span>
+                )}
+              </div>
+            </Link>
           </div>
         </nav>
         <div className="hidden lg:block xl:block">
@@ -174,7 +177,12 @@ function Navbar() {
               <Link to="/cart" className="relative">
                 <FaShoppingCart className="text-3xl text-purple-500 cursor-pointer hover:scale-110 mb-4" />
                 <div className="absolute -top-3 right-0 bg-blue-500 text-white rounded-full w-6 h-6 text-xs flex justify-center items-center">
-                {cart.length > 0 && <span className="cart-count"> {cart.reduce((total, item) => total + item.quantity, 0)}</span>}
+                  {cart.length > 0 && (
+                    <span className="cart-count">
+                      {" "}
+                      {cart.reduce((total, item) => total + item.quantity, 0)}
+                    </span>
+                  )}
                 </div>
               </Link>
             </div>

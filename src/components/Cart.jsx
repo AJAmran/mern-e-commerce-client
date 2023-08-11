@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from "react";
+import { useContext } from "react";
 import axios from "axios";
 import { FaTrash, FaMinus, FaPlus } from "react-icons/fa";
 import { motion } from "framer-motion";
@@ -60,12 +60,16 @@ const Cart = () => {
                   </div>
                   <div className="flex-grow">
                     <h3 className="text-lg font-semibold">{item.name}</h3>
-                    <p className="text-gray-700">${item.price} x {item.quantity}</p>
+                    <p className="text-gray-700">
+                      ${item.price} x {item.quantity}
+                    </p>
                     <p className="text-gray-700">Stock: {item.stock}</p>
                     <p className="text-gray-700">User Email: {user.email}</p>
                     <div className="flex items-center space-x-2 mt-2">
                       <button
-                        onClick={() => updateQuantity(item._id, item.quantity - 1)}
+                        onClick={() =>
+                          updateQuantity(item._id, item.quantity - 1)
+                        }
                         disabled={item.quantity === 1}
                         className="text-gray-600 hover:text-gray-800"
                       >
@@ -73,7 +77,9 @@ const Cart = () => {
                       </button>
                       <span className="text-gray-700">{item.quantity}</span>
                       <button
-                        onClick={() => updateQuantity(item._id, item.quantity + 1)}
+                        onClick={() =>
+                          updateQuantity(item._id, item.quantity + 1)
+                        }
                         className="text-gray-600 hover:text-gray-800"
                       >
                         <FaPlus />
@@ -93,7 +99,9 @@ const Cart = () => {
             ))}
           </ul>
           <div className="p-4 text-right">
-            <p className="text-gray-700 mb-3">Total Price: ${totalPrice.toFixed(2)}</p>
+            <p className="text-gray-700 mb-3">
+              Total Price: ${totalPrice.toFixed(2)}
+            </p>
             <Link
               to="/checkout" // Replace with the checkout page route
               className="mt-4 px-4 py-2 bg-blue-500 hover:bg-blue-600 text-white rounded"

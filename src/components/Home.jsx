@@ -1,13 +1,16 @@
 import React from 'react';
-import Banner from '../components/shared/Banner';
 import AllProducts from '../pages/AllProducts';
+import Banner from './shared/Banner';
+import useProduct from '../hook/useProduct';
 // Import the Banner component
 
 function Home() {
+  const [products, loading, refetch] = useProduct();
+  console.log(products)
   return (
     <div>
       {/* Include the Banner component here */}
-      {/* <Banner /> */}
+      <Banner></Banner>
 
       {/* Add more sections or content for the Home page */}
       <div className="container mx-auto px-4 md:px-6 lg:px-8 py-8">
