@@ -4,12 +4,15 @@ import Countdown from "react-countdown";
 import { motion } from "framer-motion";
 import classNames from "classnames";
 import useProduct from "../hook/useProduct";
+import { ImSpinner3 } from "react-icons/im";
 
 const FlashSaleComponent = () => {
   const [products, loading] = useProduct();
 
   if (loading) {
-    return <div>Loading...</div>;
+    return <div className="flex justify-center items-center h-screen">
+    <ImSpinner3 className="animate-spin text-4xl text-blue-500" />
+  </div>
   }
 
   // Select 6 random products from the products list
@@ -97,7 +100,7 @@ const FlashSaleComponent = () => {
                   ${product.price.toFixed(2)}
                 </span>
               </div>
-              <button className="mt-4 bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded">
+              <button className="mt-4 text-white bg-gradient-to-r from-blue-400 to-purple-400 hover:bg-blue-600 px-4 py-2 rounded">
                 Add to Cart
               </button>
             </motion.div>

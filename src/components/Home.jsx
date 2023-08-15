@@ -3,6 +3,7 @@ import AllProducts from "../pages/AllProducts";
 import Banner from "./shared/Banner";
 import useProduct from "../hook/useProduct";
 import FlashSale from "../pages/FlashSale";
+import CategoryCard from "../pages/CategoryCard";
 // Import the Banner component
 
 function Home() {
@@ -14,10 +15,12 @@ function Home() {
       <section className="container mx-auto">
         <Banner></Banner>
       </section>
-      <section className="container mx-auto mt-6">
+      <section className="container mx-auto mt-10">
       <FlashSale></FlashSale>
       </section>
-      {/* Add more sections or content for the Home page */}
+      <section className="container mx-auto mt-10">
+      <CategoryCard></CategoryCard>
+      </section>
       <div className="container mx-auto px-4 md:px-6 lg:px-8 py-8">
         <h2 className="text-3xl font-bold mb-4">Featured Products</h2>
         <h2 className="text-3xl font-semibold mb-4 text-center text-gray-800">
