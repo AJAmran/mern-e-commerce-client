@@ -1,36 +1,61 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { motion } from "framer-motion";
+import c1 from "../assets/ProductsItems/c1.jpg"
+import c2 from '../assets/ProductsItems/c2.jpg'
+import c3 from '../assets/ProductsItems/c3.jpg'
+import c4 from '../assets/ProductsItems/c4.jpg'
+import c6 from '../assets/ProductsItems/c6.jpg'
+import c7 from '../assets/ProductsItems/c7.png'
 
 const CategoryCard = () => {
+
+  const categories = [
+    {
+      name: "Electronics",
+      image: c1,
+    },
+    {
+      name: "Fashion",
+      image: c2,
+    },
+    
+  ];
+
+
+  const categoryVariants = {
+    hidden: { opacity: 0, y: -20 },
+    visible: { opacity: 1, y: 0 },
+  };
+
   return (
     <div>
-      <h1 className="text-xl font-semibold mb-2 md:mb-0">Categories</h1>
-      <div className="flex items-center justify-center">
-        <div className="card bg-white rounded p-4 gap-4">
-          <img src="" alt="" />
-          <Link to="/categories/electronics">Electronics</Link>
-        </div>
-        <div className="card bg-white rounded p-4">
-          {" "}
-          <Link>Fashion</Link>
-        </div>
-        <div className="card bg-white rounded p-4">
-          <Link>Home & Furniture</Link>
-        </div>
-        <div className="card bg-white rounded p-4">
-          <Link>Beauty & Personal Care</Link>
-        </div>
-        <div className="card bg-white rounded p-4">
-          <Link>Books</Link>
-        </div>
-        <div className="card bg-white rounded p-4">
-          <Link>Movies & Music</Link>
-        </div>
-        <div className="card bg-white rounded p-4">
-          <Link>Health & Wellness</Link>
-        </div>
-      </div>
+    <motion.h1
+      initial={{ opacity: 0, y: -20 }}
+      animate={{ opacity: 1, y: 0 }}
+      className="mb-2 text-xl font-semibold md:mb-4 lg:mb-2"
+    >
+      Categories
+    </motion.h1>
+    <div className="grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-4">
+      {categories.map((category, index) => (
+        <motion.div
+          key={index}
+          variants={categoryVariants}
+          initial="hidden"
+          animate="visible"
+          className="flex flex-col items-center justify-center p-4 transition-transform duration-300 transform bg-white rounded shadow-md card hover:scale-105"
+        >
+          <img
+            src={category.image}
+            alt={category.name}
+            className="w-16 h-16 mb-2 rounded-full"
+          />
+          <Link className="text-blue-500">{category.name}</Link>
+        </motion.div>
+      ))}
     </div>
+  </div>
   );
 };
 

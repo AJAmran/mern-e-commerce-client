@@ -10,8 +10,8 @@ const FlashSaleComponent = () => {
   const [products, loading] = useProduct();
 
   if (loading) {
-    return <div className="flex justify-center items-center h-screen">
-    <ImSpinner3 className="animate-spin text-4xl text-blue-500" />
+    return <div className="flex items-center justify-center h-screen">
+    <ImSpinner3 className="text-4xl text-blue-500 animate-spin" />
   </div>
   }
 
@@ -29,11 +29,11 @@ const FlashSaleComponent = () => {
       animate={{ opacity: 1, y: 0 }}
       className="p-4 border rounded shadow-md"
     >
-      <div className="flex flex-col md:flex-row items-center justify-between mb-4">
+      <div className="flex flex-col items-center justify-between mb-4 md:flex-row">
         <motion.h2
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
-          className="text-xl font-semibold mb-2 md:mb-0"
+          className="mb-2 text-xl font-semibold md:mb-0"
         >
           Flash Sale!
         </motion.h2>
@@ -43,27 +43,27 @@ const FlashSaleComponent = () => {
               date={Date.now() + 86400000}
               daysInHours
               renderer={({ hours }) => (
-                <span className="text-lg font-semibold bg-white p-1">{hours}h</span>
+                <span className="p-1 text-lg font-semibold bg-white">{hours}h</span>
               )}
             />
             <Countdown
               date={Date.now() + 86400000}
               daysInHours
               renderer={({ minutes }) => (
-                <span className="text-lg font-semibold bg-white p-1">{minutes}m</span>
+                <span className="p-1 text-lg font-semibold bg-white">{minutes}m</span>
               )}
             />
             <Countdown
               date={Date.now() + 86400000}
               daysInHours
               renderer={({ seconds }) => (
-                <span className="text-lg font-semibold bg-white p-1">{seconds}s</span>
+                <span className="p-1 text-lg font-semibold bg-white">{seconds}s</span>
               )}
             />
           </div>
         </div>
       </div>
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+      <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
         {randomProducts.map((product, index) => {
           const randomDiscount =
             discounts[Math.floor(Math.random() * discounts.length)];
@@ -73,16 +73,16 @@ const FlashSaleComponent = () => {
               key={index}
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              className="border rounded p-4 shadow-md bg-white"
+              className="p-4 bg-white border rounded shadow-md"
             >
-              <div className="relative mb-2 h-32 overflow-hidden">
+              <div className="relative h-32 mb-2 overflow-hidden">
                 <img
                   src={product.imageUrl}
                   alt={product.name}
-                  className="w-full h-full object-contain"
+                  className="object-contain w-full h-full"
                 />
               </div>
-              <h3 className="text-lg font-semibold mb-1">{product.name}</h3>
+              <h3 className="mb-1 text-lg font-semibold">{product.name}</h3>
               <div className="flex items-center">
                 {Array.from({ length: 5 }).map((_, starIndex) => (
                   <FaStar
@@ -92,15 +92,15 @@ const FlashSaleComponent = () => {
                     })}
                   />
                 ))}
-                <span className="text-gray-600 ml-1">(123)</span>
+                <span className="ml-1 text-gray-600">(123)</span>
               </div>
-              <div className="text-lg font-semibold text-green-500 mt-2">
+              <div className="mt-2 text-lg font-semibold text-green-500">
                 ${salePrice.toFixed(2)}{" "}
-                <span className="text-base line-through text-gray-400">
+                <span className="text-base text-gray-400 line-through">
                   ${product.price.toFixed(2)}
                 </span>
               </div>
-              <button className="mt-4 text-white bg-gradient-to-r from-blue-400 to-purple-400 hover:bg-blue-600 px-4 py-2 rounded">
+              <button className="px-4 py-2 mt-4 text-white rounded bg-gradient-to-r from-blue-400 to-purple-400 hover:bg-blue-600">
                 Add to Cart
               </button>
             </motion.div>
