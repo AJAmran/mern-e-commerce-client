@@ -1,5 +1,5 @@
 import React from "react";
-import { FaStar } from "react-icons/fa";
+import { FaStar, FaShoppingCart } from "react-icons/fa"; // Import the cart icon
 import Countdown from "react-countdown";
 import { motion } from "framer-motion";
 import classNames from "classnames";
@@ -10,9 +10,11 @@ const FlashSaleComponent = () => {
   const [products, loading] = useProduct();
 
   if (loading) {
-    return <div className="flex items-center justify-center h-screen">
-    <ImSpinner3 className="text-4xl text-blue-500 animate-spin" />
-  </div>
+    return (
+      <div className="flex items-center justify-center h-screen">
+        <ImSpinner3 className="text-4xl text-blue-500 animate-spin" />
+      </div>
+    );
   }
 
   // Select 6 random products from the products list
@@ -33,7 +35,7 @@ const FlashSaleComponent = () => {
         <motion.h2
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
-          className="mb-2 text-xl font-semibold md:mb-0"
+          className="mb-2 text-xl font-semibold text-center md:mb-0 md:text-left"
         >
           Flash Sale!
         </motion.h2>
@@ -75,11 +77,11 @@ const FlashSaleComponent = () => {
               animate={{ opacity: 1, y: 0 }}
               className="p-4 bg-white border rounded shadow-md"
             >
-              <div className="relative h-32 mb-2 overflow-hidden">
+              <div className="relative mb-2 overflow-hidden h-52">
                 <img
                   src={product.imageUrl}
                   alt={product.name}
-                  className="object-contain w-full h-full"
+                  className="object-cover w-full h-full"
                 />
               </div>
               <h3 className="mb-1 text-lg font-semibold">{product.name}</h3>
@@ -100,8 +102,9 @@ const FlashSaleComponent = () => {
                   ${product.price.toFixed(2)}
                 </span>
               </div>
-              <button className="px-4 py-2 mt-4 text-white rounded bg-gradient-to-r from-blue-400 to-purple-400 hover:bg-blue-600">
-                Add to Cart
+              {/* Replace the text with the cart icon */}
+              <button className="flex items-center px-4 py-2 mt-4 text-white rounded bg-gradient-to-r from-blue-400 to-purple-400 hover:bg-blue-600">
+                <FaShoppingCart className="mr-2" /> Add to Cart
               </button>
             </motion.div>
           );

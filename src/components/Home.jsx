@@ -18,12 +18,12 @@ function Home() {
       <section className="container mx-auto mt-10">
       <FlashSale></FlashSale>
       </section>
-      <section className="container mx-auto mt-10">
+      <section className="container px-4 py-8 mx-auto md:px-6 lg:px-8">
       <CategoryCard></CategoryCard>
       </section>
-      <div className="container mx-auto px-4 md:px-6 lg:px-8 py-8">
-        <h2 className="text-3xl font-bold mb-4">Featured Products</h2>
-        <h2 className="text-3xl font-semibold mb-4 text-center text-gray-800">
+      <div className="container px-4 py-8 mx-auto md:px-6 lg:px-8">
+        <h2 className="mb-4 text-3xl font-bold">Featured Products</h2>
+        <h2 className="mb-4 text-3xl font-semibold text-center text-gray-800">
          Just For You
         </h2>
         <AllProducts></AllProducts>

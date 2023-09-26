@@ -11,6 +11,8 @@ import Cart from "../components/Cart";
 import PrivateRoute from "./PrivateRoute";
 import Checkout from "../components/CheckOut";
 import Contract from "../pages/Contract";
+import SearchResultsPage from "../pages/SearchResultsPage";
+import ShopPage from "../pages/shop";
 
 export const router = createBrowserRouter([
   {
@@ -57,6 +59,14 @@ export const router = createBrowserRouter([
         path: "/contract",
         element: <Contract></Contract>
       },
+      {
+        path: '/search',
+        element: <SearchResultsPage></SearchResultsPage>
+      },
+       {
+        path: '/shop',
+        element: <ShopPage></ShopPage>
+      }
     ],
   },
 ]);

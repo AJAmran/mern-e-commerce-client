@@ -71,26 +71,26 @@ const AllProducts = () => {
 
   if (isLoading) {
     return (
-      <div className="flex justify-center items-center h-screen">
-        <ImSpinner3 className="animate-spin text-4xl text-blue-500" />
+      <div className="flex items-center justify-center h-screen">
+        <ImSpinner3 className="text-4xl text-blue-500 animate-spin" />
       </div>
     );
   }
 
   // if (isError) {
   //   return (
-  //     <div className="text-center mt-8 text-red-500">
+  //     <div className="mt-8 text-center text-red-500">
   //       Error: {error.message}
   //     </div>
   //   );
   // }
   return (
-    <div className="container mx-auto py-8">
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+    <div className="container py-8 mx-auto">
+      <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
         {products.slice(0, visibleProducts).map((product) => (
           <motion.div
             key={product.id}
-            className="bg-white rounded-lg shadow-md hover:shadow-lg p-6"
+            className="p-6 bg-white rounded-lg shadow-md hover:shadow-lg"
             variants={cardVariants}
             initial="hidden"
             animate="visible"
@@ -100,13 +100,13 @@ const AllProducts = () => {
               <img
                 src={product.imageUrl}
                 alt={product.name}
-                className="w-full h-full object-cover"
+                className="object-cover w-full h-full"
               />
             </div>
-            <h3 className="text-lg font-semibold mb-2">{product.name}</h3>
-            <p className="text-gray-700 mb-2">${product.price}</p>
-            <p className="text-gray-700 mb-2">Stock: {product.stock}</p>
-            <div className="flex justify-between items-center">
+            <h3 className="mb-2 text-lg font-semibold">{product.name}</h3>
+            <p className="mb-2 text-gray-700">${product.price}</p>
+            <p className="mb-2 text-gray-700">Stock: {product.stock}</p>
+            <div className="flex items-center justify-between">
               <Link
                 to={`/ProductDetails/${product._id}`}
                 className="flex items-center text-blue-500 hover:text-blue-600"
@@ -129,7 +129,7 @@ const AllProducts = () => {
         <div className="flex justify-center mt-4">
           <button
             onClick={handleSeeMore}
-            className="px-4 py-2 text-white bg-gradient-to-r from-blue-400 to-purple-400 hover:bg-blue-600 border rounded-lg focus:outline-none focus:ring focus:border-blue-600 text-lg font-semibold"
+            className="px-4 py-2 text-lg font-semibold text-white border rounded-lg bg-gradient-to-r from-blue-400 to-purple-400 hover:bg-blue-600 focus:outline-none focus:ring focus:border-blue-600"
           >
             See More
           </button>
