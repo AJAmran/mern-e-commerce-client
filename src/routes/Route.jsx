@@ -13,11 +13,14 @@ import Checkout from "../components/CheckOut";
 import Contract from "../pages/Contract";
 import SearchResultsPage from "../pages/SearchResultsPage";
 import ShopPage from "../pages/shop";
+import CategoryProductPage from "../pages/CategoryProductPage";
+import ErrorPage from "../components/ErrorPage";
 
 export const router = createBrowserRouter([
   {
     path: "/",
     element: <Main></Main>,
+    errorElement: <ErrorPage></ErrorPage>,
     children: [
       {
         path: "/",
@@ -57,15 +60,19 @@ export const router = createBrowserRouter([
       },
       {
         path: "/contract",
-        element: <Contract></Contract>
+        element: <Contract></Contract>,
       },
       {
-        path: '/search',
-        element: <SearchResultsPage></SearchResultsPage>
+        path: "/search",
+        element: <SearchResultsPage></SearchResultsPage>,
       },
-       {
-        path: '/shop',
-        element: <ShopPage></ShopPage>
+      {
+        path: "/shop",
+        element: <ShopPage></ShopPage>,
+      },
+      {
+        path: "/category/:categoryName",
+        element: <CategoryProductPage></CategoryProductPage>
       }
     ],
   },

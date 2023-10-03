@@ -67,19 +67,19 @@ const LoginForm = () => {
   };
 
   return (
-    <div className="bg-gradient-to-r from-purple-100 to-blue-100 min-h-screen flex items-center justify-center">
+    <div className="flex items-center justify-center min-h-screen px-4 bg-gradient-to-r from-purple-100 to-blue-100">
       <motion.div
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
-        className="w-full max-w-md p-6 bg-gradient-to-r from-blue-200 to-purple-200 shadow-md"
+        className="w-full max-w-md p-6 shadow-md bg-gradient-to-r from-blue-200 to-purple-200"
       >
-        <h2 className="text-3xl font-semibold mb-6 text-center text-gray-800">
+        <h2 className="mb-6 text-3xl font-semibold text-center text-gray-800">
           Login
         </h2>
         <form onSubmit={handleSubmit} className="space-y-4">
           <div className="relative">
-            <label className="block text-gray-700 font-semibold mb-1">
+            <label className="block mb-1 font-semibold text-gray-700">
               Email:
             </label>
             <div className="input-icon">
@@ -90,13 +90,13 @@ const LoginForm = () => {
                 defaultValue={user?.email}
                 onChange={handleChange}
                 placeholder="Please Enter Your Email"
-                className="border py-2 px-3 rounded-lg w-full focus:outline-none focus:ring focus:border-blue-200"
+                className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring focus:border-blue-200"
                 required
               />
             </div>
           </div>
           <div className="relative">
-            <label className="block text-gray-700 font-semibold mb-1">
+            <label className="block mb-1 font-semibold text-gray-700">
               Password:
             </label>
             <div className="input-ico">
@@ -106,7 +106,7 @@ const LoginForm = () => {
                 value={formData.password}
                 onChange={handleChange}
                 placeholder="Please Enter Your Password"
-                className="border px-3 py-2 rounded-lg w-full focus:outline-none focus:ring focus:border-blue-200"
+                className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring focus:border-blue-200"
                 required
               />
               <button
@@ -125,7 +125,7 @@ const LoginForm = () => {
               id="user_captcha_input"
               type="text"
               placeholder="Enter Captcha"
-              className="border px-3 py-2 rounded-lg w-full focus:outline-none focus:ring focus:border-blue-200"
+              className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring focus:border-blue-200"
               required
             />
           </div>
@@ -137,14 +137,14 @@ const LoginForm = () => {
               }}
               whileTap={{ scale: 0.95 }}
               type="submit"
-              className="flex items-center justify-center bg-gradient-to-r from-blue-400 to-purple-400 hover:bg-blue-500 py-2 px-4 rounded-lg text-white font-semibold w-full transition-colors"
+              className="flex items-center justify-center w-full px-4 py-2 font-semibold text-white transition-colors rounded-lg bg-gradient-to-r from-blue-400 to-purple-400 hover:bg-blue-500"
             >
               Login
             </motion.button>
           </div>
           <div>
             {/* Google Login Button */}
-            <button className="btn-google w-full py-2 rounded-lg text-white font-semibold bg-blue-500 hover:bg-blue-600 transition-colors flex items-center justify-center">
+            <button className="flex items-center justify-center w-full py-2 font-semibold text-white transition-colors bg-blue-500 rounded-lg btn-google hover:bg-blue-600">
               <span className="mr-2">
                 <FaGoogle size={20} />
               </span>
@@ -155,7 +155,7 @@ const LoginForm = () => {
         <div className="pt-3 pl-1">
           <p>
             New to our platform{" "}
-            <Link to="/registration" className="text-blue-900 font-semibold">
+            <Link to="/registration" className="font-semibold text-blue-900">
               Register
             </Link>
           </p>

@@ -73,7 +73,7 @@ const Registration = () => {
             imges: formData.photoUrl,
             role: "user",
           };
-          fetch("http://localhost:5000/users", {
+          fetch("https://e-commerce-backend-ajamran.vercel.app/users", {
             method: "POST",
             headers: {
               "content-type": "application/json",
@@ -100,19 +100,19 @@ const Registration = () => {
       setError('');
   };
   return (
-    <div className="bg-gradient-to-r from-purple-100 to-blue-100 min-h-screen flex items-center justify-center">
+    <div className="flex items-center justify-center min-h-screen px-4 bg-gradient-to-r from-purple-100 to-blue-100">
       <motion.div
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
-        className="w-full max-w-md p-6 bg-gradient-to-r from-blue-200 to-purple-200 shadow-lg"
+        className="w-full max-w-md p-6 shadow-lg bg-gradient-to-r from-blue-200 to-purple-200"
       >
-        <h2 className="text-3xl font-semibold mb-6 text-center text-gray-800">
+        <h2 className="mb-6 text-3xl font-semibold text-center text-gray-800">
           Registration
         </h2>
         <form onSubmit={handleSubmit} className="space-y-4">
           <div className="relative">
-            <label className="block text-gray-700 font-semibold mb-1">
+            <label className="block mb-1 font-semibold text-gray-700">
               Username:
             </label>
             <div className="input-icon">
@@ -122,13 +122,13 @@ const Registration = () => {
                 value={formData.username}
                 onChange={handleChange}
                 placeholder="Enter Your Username"
-                className="border px-3 py-2 rounded-lg w-full focus:outline-none focus:ring focus:border-blue-200"
+                className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring focus:border-blue-200"
                 required
               />
             </div>
           </div>
           <div className="relative">
-            <label className="block text-gray-700 font-semibold mb-1">
+            <label className="block mb-1 font-semibold text-gray-700">
               Email:
             </label>
             <div className="input-icon">
@@ -138,13 +138,13 @@ const Registration = () => {
                 value={formData.email}
                 onChange={handleChange}
                 placeholder="Enter Your Email"
-                className="border px-3 py-2 rounded-lg w-full focus:outline-none focus:ring focus:border-blue-200"
+                className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring focus:border-blue-200"
                 required
               />
             </div>
           </div>
           <div className="relative">
-  <label className="block text-gray-700 font-semibold mb-1">
+  <label className="block mb-1 font-semibold text-gray-700">
     Password:
   </label>
   <div className="input-icon">
@@ -154,7 +154,7 @@ const Registration = () => {
       value={formData.password}
       onChange={handleChange}
       placeholder="Enter Your Password"
-      className="border px-3 py-2 rounded-lg w-full focus:outline-none focus:ring focus:border-blue-200"
+      className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring focus:border-blue-200"
       required
     />
     <button
@@ -172,7 +172,7 @@ const Registration = () => {
   )}
 </div>
           <div className="relative">
-            <label className="block text-gray-700 font-semibold mb-1">
+            <label className="block mb-1 font-semibold text-gray-700">
               Confirm Password:
             </label>
             <div className="input-icon">
@@ -196,7 +196,7 @@ const Registration = () => {
             )}
           </div>
           <div className="relative">
-            <label className="block text-gray-700 font-semibold mb-1">
+            <label className="block mb-1 font-semibold text-gray-700">
               Photo URL:
             </label>
             <div className="input-icon">
@@ -206,7 +206,7 @@ const Registration = () => {
                 value={formData.photoUrl}
                 onChange={handleChange}
                 placeholder="Enter Photo URL"
-                className="border px-3 py-2 rounded-lg w-full focus:outline-none focus:ring focus:border-blue-200"
+                className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring focus:border-blue-200"
                 required
               />
             </div>
@@ -219,12 +219,12 @@ const Registration = () => {
               }}
               whileTap={{ scale: 0.95 }}
               type="submit"
-              className="flex items-center justify-center bg-gradient-to-r from-blue-400 to-purple-400 hover:bg-blue-500 py-2 px-4 rounded-lg text-white font-semibold w-full transition-colors"
+              className="flex items-center justify-center w-full px-4 py-2 font-semibold text-white transition-colors rounded-lg bg-gradient-to-r from-blue-400 to-purple-400 hover:bg-blue-500"
               disabled={registrationLoading} // Disable button during registration
             >
               {registrationLoading ? ( // Conditionally render spinner or text
                 <>
-                  <FaSpinner className="animate-spin mr-2" />
+                  <FaSpinner className="mr-2 animate-spin" />
                   Registering...
                 </>
               ) : (
@@ -234,9 +234,9 @@ const Registration = () => {
           </div>
         </form>
         <div className="pt-3 pl-1">
-          <p>Already Have an account <Link to="/login" className="text-blue-900 font-semibold">LogIn</Link></p>
+          <p>Already Have an account <Link to="/login" className="font-semibold text-blue-900">LogIn</Link></p>
         </div>
-        <div className="text-red-500 text-sm mt-2">{error}</div>
+        <div className="mt-2 text-sm text-red-500">{error}</div>
       </motion.div>
     </div>
   );

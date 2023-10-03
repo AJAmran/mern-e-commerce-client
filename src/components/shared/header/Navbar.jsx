@@ -38,7 +38,7 @@ function Navbar() {
   return (
     <div className="z-10 bg-gradient-to-r from-blue-200 to-purple-200">
       <div className="container mx-auto">
-        <nav className="flex items-center justify-between px-6 py-4 mt-10 text-gray-800 lg:px-10">
+        <nav className="flex items-center justify-between px-4 py-4 mt-10 text-gray-800 md:px-6 lg:px-8">
           <Link to="/" className="flex items-center space-x-2">
             <img src={logo} alt="Logo" className="w-10 h-10" />
             <span className="text-2xl font-semibold text-blue-500">
@@ -46,7 +46,7 @@ function Navbar() {
             </span>
           </Link>
 
-          <div className="flex">
+          <div className="hidden lg:flex">
             <input
               type="text"
               placeholder="Search products..."

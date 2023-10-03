@@ -16,7 +16,7 @@ const Cart = () => {
   );
   const updateQuantity = async (itemId, newQuantity) => {
     try {
-      await axios.put(`http://localhost:5000/carts/${itemId}`, {
+      await axios.put(`https://e-commerce-backend-ajamran.vercel.app/carts/${itemId}`, {
         quantity: newQuantity,
       });
       refetch(); // Refetch the cart data after updating
@@ -27,7 +27,7 @@ const Cart = () => {
 
   const removeItem = async (itemId) => {
     try {
-      await axios.delete(`http://localhost:5000/carts/${itemId}`);
+      await axios.delete(`https://e-commerce-backend-ajamran.vercel.app/carts/${itemId}`);
       refetch(); // Refetch the cart data after removal
     } catch (error) {
       console.error("Error removing item:", error);
@@ -35,27 +35,27 @@ const Cart = () => {
   };
 
   return (
-    <div className="container mx-auto py-8">
-      <h2 className="text-3xl font-semibold mb-4 text-center text-gray-800">
+    <div className="container py-8 mx-auto">
+      <h2 className="mb-4 text-3xl font-semibold text-center text-gray-800">
         Your Cart
       </h2>
       {carts.length > 0 ? (
-        <div className="bg-white shadow-lg rounded-lg overflow-hidden">
+        <div className="overflow-hidden bg-white rounded-lg shadow-lg">
           <ul className="divide-y divide-gray-300">
             {carts.map((item) => (
               <motion.li
                 key={item._id}
-                className="p-4 flex items-center"
+                className="flex items-center p-4"
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.3 }}
               >
-                <div className="flex items-center space-x-4 w-full">
-                  <div className="h-24 w-24 overflow-hidden rounded-md">
+                <div className="flex items-center w-full space-x-4">
+                  <div className="w-24 h-24 overflow-hidden rounded-md">
                     <img
                       src={item.images} // Replace with the actual image URL
                       alt={item.name}
-                      className="w-full h-full object-cover"
+                      className="object-cover w-full h-full"
                     />
                   </div>
                   <div className="flex-grow">
@@ -65,7 +65,7 @@ const Cart = () => {
                     </p>
                     <p className="text-gray-700">Stock: {item.stock}</p>
                     <p className="text-gray-700">User Email: {user.email}</p>
-                    <div className="flex items-center space-x-2 mt-2">
+                    <div className="flex items-center mt-2 space-x-2">
                       <button
                         onClick={() =>
                           updateQuantity(item._id, item.quantity - 1)
@@ -99,12 +99,12 @@ const Cart = () => {
             ))}
           </ul>
           <div className="p-4 text-right">
-            <p className="text-gray-700 mb-3">
+            <p className="mb-3 text-gray-700">
               Total Price: ${totalPrice.toFixed(2)}
             </p>
             <Link
               to="/checkout" // Replace with the checkout page route
-              className="mt-4 px-4 py-2 bg-blue-500 hover:bg-blue-600 text-white rounded"
+              className="px-4 py-2 mt-4 text-white bg-blue-500 rounded hover:bg-blue-600"
             >
               Checkout
             </Link>

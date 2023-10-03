@@ -1,22 +1,22 @@
-import { useContext, useState } from "react";
-import { ImSpinner3 } from "react-icons/im";
-import { useMutation } from "@tanstack/react-query";
-import Swal from "sweetalert2";
-import { AuthContext } from "../context/AuthProvider";
+import React, { useContext } from "react";
+import { useParams } from "react-router-dom";
 import useProduct from "../hook/useProduct";
+import { AuthContext } from "../context/AuthProvider";
 import useCart from "../hook/useCart";
 import axios from "axios";
+import { useMutation } from "@tanstack/react-query";
+import Swal from "sweetalert2";
 import ProductCard from "../components/ProductCard";
 
-const AllProducts = () => {
-  const { user } = useContext(AuthContext);
-  const [cart, refetchCart] = useCart();
+const CategoryProductPage = () => {
+  const { categoryName } = useParams();
   const [products, isLoading] = useProduct();
-  const [visibleProducts, setVisibleProducts] = useState(10);
+  const { user } = useContext(AuthContext);
+  const [cart, refetchCart] = useCart(); // get all product
 
-  const handleSeeMore = () => {
-    setVisibleProducts((prevVisibleProducts) => prevVisibleProducts + 10);
-  };
+  const categoryProduct = products.filter(
+    (product) => product.category === categoryName
+  );
 
   const addToCartMutation = ({ productId, quantity, userEmail }) =>
     axios.post("https://e-commerce-backend-ajamran.vercel.app/carts", {
@@ -61,26 +61,16 @@ const AllProducts = () => {
     }
   };
 
-  if (isLoading) {
-    return (
-      <div className="flex items-center justify-center h-screen">
-        <ImSpinner3 className="text-4xl text-blue-500 animate-spin" />
-      </div>
-    );
-  }
-
-  if(products.length === 0){
-    return (
-    <div className="flex justify-center">
-      <h1 className="text-red-500">Failed to fetch data ...</h1>
+  if(categoryProduct.length===0){
+    return(<div className="container min-h-screen px-4 py-8 mx-auto md:px-6 lg:px-8">
+        <p>No Product to show</p>
     </div>)
   }
 
-
   return (
-    <div className="container py-8 mx-auto">
+    <div className="container min-h-screen px-4 py-8 mx-auto md:px-6 lg:px-8">
       <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-        {products?.slice(0, visibleProducts).map((product) => (
+      {categoryProduct.map((product) => (
           <ProductCard
             key={product.id}
             product={product}
@@ -88,18 +78,8 @@ const AllProducts = () => {
           />
         ))}
       </div>
-      {visibleProducts < products.length && (
-        <div className="flex justify-center mt-4">
-          <button
-            onClick={handleSeeMore}
-            className="px-4 py-2 text-lg font-semibold text-white border rounded-lg bg-gradient-to-r from-blue-400 to-purple-400 hover:bg-blue-600 focus:outline-none focus:ring focus:border-blue-600"
-          >
-            See More
-          </button>
-        </div>
-      )}
     </div>
   );
 };
 
-export default AllProducts;
+export default CategoryProductPage;

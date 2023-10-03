@@ -8,7 +8,7 @@ const useProduct = () => {
   } = useQuery({
     queryKey: ["products"],
     queryFn: async () => {
-      const res = await fetch("http://localhost:5000/products");
+      const res = await fetch("https://e-commerce-backend-ajamran.vercel.app/products");
       return res.json();
     },
   });

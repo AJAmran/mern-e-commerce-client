@@ -22,14 +22,14 @@ const Header =() =>{
   const renderAuthenticationButton = () => {
     if (user) {
       return (
-        <button onClick={signOut} className="hover:underline flex items-center">
+        <button onClick={signOut} className="flex items-center hover:underline">
           <FaSignOutAlt className="mr-1" />
           Logout
         </button>
       );
     } else {
       return (
-        <Link to="/login" className="hover:underline flex items-center">
+        <Link to="/login" className="flex items-center hover:underline">
           <FaSignInAlt className="mr-1" />
           Login
         </Link>
@@ -38,25 +38,25 @@ const Header =() =>{
   };
 
   return (
-    <header className="bg-blue-400 text-white py-2 px-4 md:px-6 lg:px-8 fixed top-0 left-0 w-full flex justify-between items-center">
+    <header className="fixed top-0 left-0 z-50 flex items-center justify-between w-full px-4 py-2 text-white bg-blue-400 md:px-6 lg:px-8">
       {/* Left side links */}
       <div className="flex items-center space-x-6">
-        <Link to="/faqs" className="hover:underline flex items-center">
+        <Link to="/faqs" className="flex items-center hover:underline">
           <FaQuestionCircle className="mr-1" />
           FAQs
         </Link>
-        <Link to="/help" className="hover:underline flex items-center">
+        <Link to="/help" className="flex items-center hover:underline">
           <FaHeadset className="mr-1" />
           Help
         </Link>
-        <Link to="/support" className="hover:underline flex items-center">
+        <Link to="/support" className="flex items-center hover:underline">
           <FaComments className="mr-1" />
           Support
         </Link>
       </div>
 
       {/* Right side social links and authentication */}
-      <div className="flex items-center space-x-4">
+      <div className="flex items-center ml-1 space-x-4">
         {renderAuthenticationButton()}
         <a href="#" className="text-white hover:text-gray-300">
           <FaFacebook />

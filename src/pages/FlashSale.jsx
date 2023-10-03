@@ -1,10 +1,11 @@
 import React from "react";
-import { FaStar, FaShoppingCart } from "react-icons/fa"; // Import the cart icon
+import { FaStar, FaShoppingCart } from "react-icons/fa";
 import Countdown from "react-countdown";
 import { motion } from "framer-motion";
 import classNames from "classnames";
 import useProduct from "../hook/useProduct";
 import { ImSpinner3 } from "react-icons/im";
+import { Link } from "react-router-dom";
 
 const FlashSaleComponent = () => {
   const [products, loading] = useProduct();
@@ -13,6 +14,13 @@ const FlashSaleComponent = () => {
     return (
       <div className="flex items-center justify-center h-screen">
         <ImSpinner3 className="text-4xl text-blue-500 animate-spin" />
+      </div>
+    );
+  }
+  if (products.length ===0) {
+    return (
+      <div className="flex justify-center">
+        <h1>Failed to Fetch data ...</h1>
       </div>
     );
   }
@@ -35,7 +43,7 @@ const FlashSaleComponent = () => {
         <motion.h2
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
-          className="mb-2 text-xl font-semibold text-center md:mb-0 md:text-left"
+          className="mb-2 text-2xl font-semibold text-center text-blue-600 md:mb-0 md:text-left"
         >
           Flash Sale!
         </motion.h2>
@@ -45,21 +53,27 @@ const FlashSaleComponent = () => {
               date={Date.now() + 86400000}
               daysInHours
               renderer={({ hours }) => (
-                <span className="p-1 text-lg font-semibold bg-white">{hours}h</span>
+                <span className="p-1 text-lg font-semibold text-blue-600 bg-white">
+                  {hours}h
+                </span>
               )}
             />
             <Countdown
               date={Date.now() + 86400000}
               daysInHours
               renderer={({ minutes }) => (
-                <span className="p-1 text-lg font-semibold bg-white">{minutes}m</span>
+                <span className="p-1 text-lg font-semibold text-blue-600 bg-white">
+                  {minutes}m
+                </span>
               )}
             />
             <Countdown
               date={Date.now() + 86400000}
               daysInHours
               renderer={({ seconds }) => (
-                <span className="p-1 text-lg font-semibold bg-white">{seconds}s</span>
+                <span className="p-1 text-lg font-semibold text-blue-600 bg-white">
+                  {seconds}s
+                </span>
               )}
             />
           </div>
@@ -69,22 +83,25 @@ const FlashSaleComponent = () => {
         {randomProducts.map((product, index) => {
           const randomDiscount =
             discounts[Math.floor(Math.random() * discounts.length)];
-          const salePrice = product.price * (1 - randomDiscount / 100);
+          const salePrice = product?.price * (1 - randomDiscount / 100);
           return (
             <motion.div
               key={index}
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              className="p-4 bg-white border rounded shadow-md"
+              className="p-4 transition-transform transform bg-white border rounded shadow-md hover:scale-75"
             >
-              <div className="relative mb-2 overflow-hidden h-52">
+              <Link to={`ProductDetails/${product?._id}`}>
+              <div className="relative mb-4 overflow-hidden h-52">
                 <img
-                  src={product.imageUrl}
+                  src={product?.imageUrl}
                   alt={product.name}
-                  className="object-cover w-full h-full"
+                  className="object-cover w-full h-full rounded"
                 />
               </div>
-              <h3 className="mb-1 text-lg font-semibold">{product.name}</h3>
+              <h3 className="mb-1 text-xl font-semibold text-blue-600">
+                {product.name}
+              </h3>
               <div className="flex items-center">
                 {Array.from({ length: 5 }).map((_, starIndex) => (
                   <FaStar
@@ -96,16 +113,13 @@ const FlashSaleComponent = () => {
                 ))}
                 <span className="ml-1 text-gray-600">(123)</span>
               </div>
-              <div className="mt-2 text-lg font-semibold text-green-500">
+              <div className="mt-2 text-2xl font-semibold text-green-500">
                 ${salePrice.toFixed(2)}{" "}
                 <span className="text-base text-gray-400 line-through">
-                  ${product.price.toFixed(2)}
+                  ${product?.price.toFixed(2)}
                 </span>
               </div>
-              {/* Replace the text with the cart icon */}
-              <button className="flex items-center px-4 py-2 mt-4 text-white rounded bg-gradient-to-r from-blue-400 to-purple-400 hover:bg-blue-600">
-                <FaShoppingCart className="mr-2" /> Add to Cart
-              </button>
+              </Link>
             </motion.div>
           );
         })}

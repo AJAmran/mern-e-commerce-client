@@ -8,22 +8,20 @@ import CategoryCard from "../pages/CategoryCard";
 
 function Home() {
   const [products, loading, refetch] = useProduct();
-  console.log(products);
   return (
     <div>
       {/* Include the Banner component here */}
-      <section className="container mx-auto">
+      <section className="container px-4 py-8 mx-auto mt-10 md:px-6 lg:px-8">
         <Banner></Banner>
       </section>
-      <section className="container mx-auto mt-10">
+      <section className="container px-4 py-8 mx-auto mt-10 md:px-6 lg:px-8">
       <FlashSale></FlashSale>
       </section>
       <section className="container px-4 py-8 mx-auto md:px-6 lg:px-8">
       <CategoryCard></CategoryCard>
       </section>
       <div className="container px-4 py-8 mx-auto md:px-6 lg:px-8">
-        <h2 className="mb-4 text-3xl font-bold">Featured Products</h2>
-        <h2 className="mb-4 text-3xl font-semibold text-center text-gray-800">
+        <h2 className="mb-2 text-2xl font-semibold text-center text-blue-600 md:mb-0 md:text-left">
          Just For You
         </h2>
         <AllProducts></AllProducts>

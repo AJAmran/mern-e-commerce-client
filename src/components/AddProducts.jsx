@@ -31,7 +31,7 @@ const AddProductForm =()=> {
     e.preventDefault();
     
     try {
-      const response = await axios.post('http://localhost:5000/products', productData); // Adjust the API endpoint
+      const response = await axios.post('https://e-commerce-backend-ajamran.vercel.app/products', productData); // Adjust the API endpoint
       console.log('Product added:', response.data);
       // Clear the form or show a success message
       setProductData({
@@ -57,29 +57,29 @@ const AddProductForm =()=> {
   };
 
   return (
-    <div className="bg-gradient-to-r from-blue-100 to-purple-100 min-h-screen flex items-center justify-center pt-2">
+    <div className="flex items-center justify-center min-h-screen pt-2 bg-gradient-to-r from-blue-100 to-purple-100">
     <motion.div
       initial={{ opacity: 0, y: -20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5 }}
-      className="w-full max-w-md p-6 bg-gradient-to-r from-blue-200 to-purple-200 rounded-lg shadow-md"
+      className="w-full max-w-md p-6 rounded-lg shadow-md bg-gradient-to-r from-blue-200 to-purple-200"
     >
-      <h2 className="text-3xl font-semibold mb-6 text-center text-gray-800">Add New Product</h2>
+      <h2 className="mb-6 text-3xl font-semibold text-center text-gray-800">Add New Product</h2>
       <form onSubmit={handleSubmit} className="space-y-6">
           <div className="space-y-1">
-            <label className="block text-gray-700 font-semibold">Name:</label>
+            <label className="block font-semibold text-gray-700">Name:</label>
             <input
               type="text"
               name="name"
               value={productData.name}
               onChange={handleChange}
               placeholder="Product Name"
-              className="input border px-3 py-2 rounded-lg w-full focus:outline-none focus:ring focus:border-blue-200"
+              className="w-full px-3 py-2 border rounded-lg input focus:outline-none focus:ring focus:border-blue-200"
               required
             />
           </div>
           <div className="space-y-1">
-            <label className="block text-gray-700 font-semibold">
+            <label className="block font-semibold text-gray-700">
               Description:
             </label>
             <input
@@ -89,11 +89,11 @@ const AddProductForm =()=> {
               onChange={handleChange}
               placeholder="Product Description"
               required
-              className="input border px-3 py-2 rounded-lg w-full focus:outline-none focus:ring focus:border-blue-200"
+              className="w-full px-3 py-2 border rounded-lg input focus:outline-none focus:ring focus:border-blue-200"
             />
           </div>
           <div className="space-y-1">
-            <label className="block text-gray-700 font-semibold">Price:</label>
+            <label className="block font-semibold text-gray-700">Price:</label>
             <input
               type="number"
               name="price"
@@ -101,11 +101,11 @@ const AddProductForm =()=> {
               onChange={handleChange}
               placeholder="Product Price"
               required
-              className="input border px-3 py-2 rounded-lg w-full focus:outline-none focus:ring focus:border-blue-200"
+              className="w-full px-3 py-2 border rounded-lg input focus:outline-none focus:ring focus:border-blue-200"
             />
           </div>
           <div className="space-y-1">
-            <label className="block text-gray-700 font-semibold">
+            <label className="block font-semibold text-gray-700">
               Category:
             </label>
             <input
@@ -115,11 +115,11 @@ const AddProductForm =()=> {
               onChange={handleChange}
               placeholder="Product Category"
               required
-              className="input border px-3 py-2 rounded-lg w-full focus:outline-none focus:ring focus:border-blue-200"
+              className="w-full px-3 py-2 border rounded-lg input focus:outline-none focus:ring focus:border-blue-200"
             />
           </div>
           <div className="space-y-1">
-            <label className="block text-gray-700 font-semibold">Brand:</label>
+            <label className="block font-semibold text-gray-700">Brand:</label>
             <input
               type="text"
               name="brand"
@@ -127,11 +127,11 @@ const AddProductForm =()=> {
               onChange={handleChange}
               placeholder="Product Brand"
               required
-              className="input border px-3 py-2 rounded-lg w-full focus:outline-none focus:ring focus:border-blue-200"
+              className="w-full px-3 py-2 border rounded-lg input focus:outline-none focus:ring focus:border-blue-200"
             />
           </div>
           <div className="space-y-1">
-            <label className="block text-gray-700 font-semibold">Stock:</label>
+            <label className="block font-semibold text-gray-700">Stock:</label>
             <input
               type="number"
               name="stock"
@@ -139,11 +139,11 @@ const AddProductForm =()=> {
               onChange={handleChange}
               placeholder="Product Stock"
               required
-              className="input border px-3 py-2 rounded-lg w-full focus:outline-none focus:ring focus:border-blue-200"
+              className="w-full px-3 py-2 border rounded-lg input focus:outline-none focus:ring focus:border-blue-200"
             />
           </div>
           <div className="space-y-1">
-            <label className="block text-gray-700 font-semibold">
+            <label className="block font-semibold text-gray-700">
               Image URL:
             </label>
             <input
@@ -153,7 +153,7 @@ const AddProductForm =()=> {
               onChange={handleChange}
               placeholder="Image URL"
               required
-              className="input border px-3 py-2 rounded-lg w-full focus:outline-none focus:ring focus:border-blue-200"
+              className="w-full px-3 py-2 border rounded-lg input focus:outline-none focus:ring focus:border-blue-200"
             />
           </div>
           <div className="mt-6">
@@ -161,7 +161,7 @@ const AddProductForm =()=> {
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               type="submit"
-              className="flex items-center justify-center bg-gradient-to-r from-blue-400 to-purple-400 hover:bg-blue-600 py-2 px-4 rounded-lg text-white font-semibold w-full transition-colors"
+              className="flex items-center justify-center w-full px-4 py-2 font-semibold text-white transition-colors rounded-lg bg-gradient-to-r from-blue-400 to-purple-400 hover:bg-blue-600"
             >
               <FaPlusCircle className="mr-2" />
               Add Product

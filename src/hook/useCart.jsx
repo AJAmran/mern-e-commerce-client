@@ -12,12 +12,9 @@ const useCart = () => {
     enabled: !loading,
     queryFn: async () => {
       const res = await axiosSecure(`/carts?email=${user?.email}`);
-      console.log("res from axios", res);
       return res.data;
     },
   });
-
-  console.log(cart);
   return [cart, refetch];
 };
 

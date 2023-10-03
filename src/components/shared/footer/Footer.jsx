@@ -9,8 +9,8 @@ import {
 
 const Footer = () => {
   return (
-    <footer className="px-10 py-8 bg-gradient-to-r from-blue-200 to-purple-200">
-      <div className="container mx-auto">
+    <footer className="py-8 bg-gradient-to-r from-blue-200 to-purple-200">
+      <div className="container px-4 mx-auto md:px-6 lg:px-8">
         <div className="flex flex-col justify-between md:flex-row">
           {/* Footer Section 1 - Company Information */}
           <div className="mb-4 md:w-1/4">
